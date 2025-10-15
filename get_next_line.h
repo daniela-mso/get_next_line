@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:42:06 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/14 14:43:33 by danielad         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:29:39 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 
 # ifndef BUFFER_SIZE 
 # define BUFFER_SIZE 5
+# endif
 
+# if BUFFER_SIZE <= 0
+#  error "BUFFER_SIZE cannot be lower or equal to 0"
 # endif
 
 char	*get_next_line(int fd);

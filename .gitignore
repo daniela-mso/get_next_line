@@ -1,0 +1,6 @@
+gnl-station-tester/
+gnlTester/
+a.out
+*.o
+*.gch
+.vscode/
