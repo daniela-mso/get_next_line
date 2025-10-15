@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:07:31 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/15 19:14:11 by danielad         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:16:56 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,101 +18,10 @@
 #include <string.h>
 
 
-// static char	*g_string = NULL;
-
-// static int string()
-// {
-// 	if (g_string == NULL)
-// 	{
-// 		g_string = malloc(1);
-// 		if (!g_string)
-// 			return (-1);
-// 		g_string[0] = '\0';
-// 	}
-// 	return (0);
-// }
 
 
 
-// static char	*read_line(int fd)
-// {
-// 	char		*read_data;
-// 	ssize_t		n_bytes_read;
-// 	char		*temp;
-
-// 	if (fd < 0 || BUFFER_SIZE <= 0)
-// 		return (NULL);
-// 	if (string() != 0)
-// 		return NULL;
-// 	read_data = malloc(BUFFER_SIZE + 1);
-// 	if (!read_data)
-// 		return (NULL);
-// 	n_bytes_read = read(fd, read_data, BUFFER_SIZE);
-// 	while (n_bytes_read > 0)
-// 	{
-// 		read_data[n_bytes_read] = '\0';
-// 		temp = ft_strjoin(g_string, read_data);
-// 		if (temp == NULL)
-// 		{
-// 			free(read_data);
-// 			return (NULL);
-// 		}
-// 		free(g_string);
-// 		g_string = temp;
-// 		if (ft_strchr(read_data, '\n'))
-// 			break ;
-// 		n_bytes_read = read(fd, read_data, BUFFER_SIZE);
-// 	}
-// 	free(read_data);
-// 	return (g_string);
-// }
-
-
-// char	*get_next_line(int fd)
-// {
-// 	char		*line;
-// 	int			i;
-// 	int			j;
-// 	char		*temp;
-// 	// static char	*g_string = NULL;
-
-// 	// g_string = NULL;
-// 	i = 0;
-// 	j = 0;
-// 	if (!g_string || *g_string == '\0')
-// 	{
-// 		free(g_string);
-// 		g_string = NULL;
-// 		return (NULL);
-// 	}
-// 	else
-// 		g_string = read_line(fd);
-// 	while (g_string[i] && g_string[i] != '\n')
-// 		i++;
-// 	if (g_string[i] == '\n')
-// 		i++;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-// 	line = malloc(i + 1);
-// 	if (line == NULL)
-// 		return (NULL);
-// 	while (j < i)
-// 	{
-// 		line[j] = g_string[j];
-// 		j++;
-// 	}
-// 	line[j] = '\0';
-// 	temp = ft_strdup(g_string + i);
-// 	free(g_string);
-// 	g_string = temp;
-// 	return (line);
-// }
-
-
-
-
-
-
-
-
+ 
 
 
 // static char	*g_string = NULL;
