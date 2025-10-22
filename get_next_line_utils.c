@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:35:03 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/14 15:43:43 by danielad         ###   ########.fr       */
+/*   Updated: 2025/10/22 14:02:37 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,47 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 char	*ft_strdup(const char *s)
 {
 	char	*dup;
+	int i;
 
+	i = 0;
 	dup = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (dup == NULL)
 		return (NULL);
-	ft_strcpy(dup, s);
+	while (s[i] != '\0')
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
 	return (dup);
+}
+
+char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	size_t i;
+	char	*substr;
+	unsigned int len_of_s;
+
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	len_of_s = (unsigned int)ft_strlen(s);
+	if (start > len_of_s || len == 0)
+		return (ft_strdup(""));
+	if ((len_of_s - start) < len)
+		len = len_of_s - start;
+	substr = malloc(sizeof(char) * (len + 1));
+	if (substr == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
+		
 }
