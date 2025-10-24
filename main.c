@@ -75,7 +75,7 @@ char *get_next_line(int fd);
 
 int main(void)
 {
-	int fd = open("test_file.txt", O_RDONLY);
+	int fd = open("simple_3_lines.txt", O_RDONLY);
 	if (fd < 0)
 	{
 		perror("open");
@@ -94,7 +94,26 @@ int main(void)
 	return 0;
 }
 
+int main(void)
+{
+	int fd = open("simple_3_lines.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("open");
+		return 1;
+	}
 
+	char *line;
+	(line = get_next_line(fd))
+	{
+		printf("LINE: %s", line);
+		free(line);
+	}
+	printf("End of file or error reached.\n");
+
+	close(fd);
+	return 0;
+}
 
 
 
