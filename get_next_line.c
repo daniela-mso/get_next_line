@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:07:31 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/23 14:49:06 by danielad         ###   ########.fr       */
+/*   Updated: 2025/10/24 11:27:27 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*read_data(int fd)
 	if (was_read == NULL)
 	{
 		was_read = ft_strdup("");
-		if (was_read == NULL)
+		if (was_read == NULL) // do i need this?
 			return (NULL);
 	}
 	was_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -28,13 +28,21 @@ static char	*read_data(int fd)
 		return (NULL);
 	b_read = read(fd, was_read, BUFFER_SIZE);
 
-	
+	return (was_read);
 	
 }
 
 static char	*set_line(char *line_buffer)
 {
-	 
+	char	*line;
+
+	if (line == NULL)
+		line = ft_strdup("");
+	while (!ft_strchr(line, '\0'));
+	{
+		
+	}
+	
 }
 
 char	*get_next_line(int fd)
