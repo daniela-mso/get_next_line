@@ -14,7 +14,7 @@ if [ ! -d "$TEST_DIR" ]; then
     exit 1
 fi
 
-BUFFER_SIZES=(1 5 2480 100000000 )
+BUFFER_SIZES=(1 10 2480 100000000 )
 
 for BUFFER_SIZE in "${BUFFER_SIZES[@]}"; do
     echo "=== Testing with buffer size: $BUFFER_SIZE ==="
