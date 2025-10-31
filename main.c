@@ -38,7 +38,7 @@ int main(void)
 	char *line;
 	while ((line = get_next_line(fd)))
 	{
-		printf("LINE: %s", line);
+		//printf("LINE: %s", line);
 		free(line);
 	}
 	printf("End of file or error reached.\n");

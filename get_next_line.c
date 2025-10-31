@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:07:31 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/31 13:58:10 by danielad         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:09:23 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,24 +156,24 @@ static char *read_buffer(int fd, char *stash)
 
 	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buf == NULL){
-		printf("buf1 = %s\n", buf);
+		printf("buf= NULL : = %s\n", buf);
 		return (NULL);
 	}
 	bytes = 1;
+	stash = ft_strdup("");
 	while (!ft_strchr(stash, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
 		{
-			printf("buf2 = %s\n", buf);
+			printf("bytes < 0 buff: = %s\n", buf);
 
 			free(buf);
 
 			return (NULL);
 		}
 		buf[bytes] = '\0';
-		printf("buf3 = %s\n", buf);
-
+		printf("buf1 = %s\n", buf);
 		stash = ft_strjoin(stash, buf);
 		printf("staah1 = %s\n", stash);
 
@@ -185,7 +185,7 @@ static char *read_buffer(int fd, char *stash)
 			return (NULL);
 		}
 	}
-	printf("staah3 = %s\n", stash);
+	printf("stash before return in read_bffer = %s\n", stash);
 	
 	free(buf);
 	return (stash);
@@ -202,6 +202,7 @@ static char	*extract_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
+	printf("stash in extract_line = %s\n", stash);
 	return (ft_substr(stash, 0, i));
 }
 
@@ -213,12 +214,14 @@ static char *clean_stash(char *stash)
 	i = 0;
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	if (!stash[i])
+	printf("stash in clean_stash = %s\n", stash);
+	if (stash[i] == '\0')
 	{
 		free(stash);
 		return (NULL);
 	}
 	rest = ft_substr(stash, i + 1, ft_strlen(stash));
+	printf("rest in clean_stash = %s\n", rest);
 	free(stash);
 	return (rest);
 }
@@ -228,18 +231,20 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 )
 	{
-		printf("invalid fd or buffersize");
+		printf("invalid fd");
 		return (NULL);
 	}
-	printf("stash = %s\n", stash);
 	stash = read_buffer(fd, stash);
+	printf("stash in the main gnl function = %s\n", stash);
+
 	if (stash == NULL)
 		return (NULL);
 	line = extract_line(stash);
-	printf("line = %s\n", line);
+	printf("line in the main gnl function = %s\n", line);
 
 	stash = clean_stash(stash);
+	printf("stash after getting cleand in th main gnl = %s\n", stash);
 	return (line);
 }
