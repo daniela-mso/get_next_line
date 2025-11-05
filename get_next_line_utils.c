@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:35:03 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/22 14:02:37 by danielad         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:46:12 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,31 +85,4 @@ char	*ft_strdup(const char *s)
 	}
 	dup[i] = '\0';
 	return (dup);
-}
-
-char	*ft_substr(const char *s, unsigned int start, size_t len)
-{
-	size_t i;
-	char	*substr;
-	unsigned int len_of_s;
-
-	i = 0;
-	if (s == NULL)
-		return (NULL);
-	len_of_s = (unsigned int)ft_strlen(s);
-	if (start > len_of_s || len == 0)
-		return (ft_strdup(""));
-	if ((len_of_s - start) < len)
-		len = len_of_s - start;
-	substr = malloc(sizeof(char) * (len + 1));
-	if (substr == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
-		
 }

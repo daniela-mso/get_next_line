@@ -31,6 +31,6 @@ for BUFFER_SIZE in "${BUFFER_SIZES[@]}"; do
     done
 done
 
-rm a.out
+rm a.out 
 
 echo "Testing completed"

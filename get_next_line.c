@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:07:31 by danielad          #+#    #+#             */
-/*   Updated: 2025/10/31 17:09:23 by danielad         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:30:04 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,102 +149,98 @@
 // file descriptor
 
 
-static char *read_buffer(int fd, char *stash)
+static char *read_buffer(int fd, char **stash)
 {
 	char	*buf;
-	ssize_t	bytes;
+	ssize_t	bytes_read;
+	char	*temp;
 
-	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (buf == NULL){
-		printf("buf= NULL : = %s\n", buf);
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (buf == NULL)
 		return (NULL);
-	}
-	bytes = 1;
-	stash = ft_strdup("");
-	while (!ft_strchr(stash, '\n') && bytes > 0)
+	while ((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		bytes = read(fd, buf, BUFFER_SIZE);
-		if (bytes < 0)
-		{
-			printf("bytes < 0 buff: = %s\n", buf);
-
-			free(buf);
-
-			return (NULL);
-		}
-		buf[bytes] = '\0';
-		printf("buf1 = %s\n", buf);
-		stash = ft_strjoin(stash, buf);
-		printf("staah1 = %s\n", stash);
-
-		if (stash == NULL)
-		{
-			printf("staah2 = %s\n", stash);
-			
-			free(buf);
-			return (NULL);
-		}
+		buf[bytes_read] = '\0';
+		temp = ft_strjoin(*stash, buf);
+		free(*stash);
+		*stash = temp;
+		if (ft_strchr(buf, '\n'))
+			break;
 	}
-	printf("stash before return in read_bffer = %s\n", stash);
-	
 	free(buf);
-	return (stash);
-}
-
-static char	*extract_line(char *stash)
-{
-	int	i;
-
-	if (!stash || !*stash)
+	if (bytes_read < 0)
 		return (NULL);
-	i = 0;
-	while (stash[i] && stash[i] != '\n')
-		i++;
-	if (stash[i] == '\n')
-		i++;
-	printf("stash in extract_line = %s\n", stash);
-	return (ft_substr(stash, 0, i));
+	return (*stash);
 }
 
-static char *clean_stash(char *stash)
+static char	*extract_line(char **stash)
 {
 	int		i;
+	int		j;
+	char	*line;
+
+	i = 0;
+	j = 0;
+	while (((*stash)[i] != '\0') && ((*stash)[i] != '\n'))
+		i++;
+	if ((*stash)[i] == '\n')
+		i++;
+	line = malloc(sizeof(char) * (i + 1));
+	if (line == NULL)
+		return (NULL);
+	while (j <= i)
+	{
+		line[j] = (*stash)[j];
+		j++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+
+static void clean_stash(char **stash)
+{
+	int		i;
+	char	*temp;
 	char	*rest;
 
 	i = 0;
-	while (stash[i] && stash[i] != '\n')
+	temp = *stash;
+	while (temp[i] && temp[i] != '\n')
 		i++;
-	printf("stash in clean_stash = %s\n", stash);
-	if (stash[i] == '\0')
-	{
-		free(stash);
-		return (NULL);
-	}
-	rest = ft_substr(stash, i + 1, ft_strlen(stash));
-	printf("rest in clean_stash = %s\n", rest);
-	free(stash);
-	return (rest);
+	if (temp[i] == '\n')
+		i++;
+	// if (stash[i] == '\0')
+	// {
+	// 	free(stash);
+	// 	return (NULL);
+	// }
+	rest = ft_strdup(temp + i);
+	free(*stash);
+	*stash = rest;
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash = NULL;
 	char		*line;
-
+	 
 	if (fd < 0 )
+		return (NULL);
+	if (stash == NULL)
+		stash = ft_strdup("");
+	if (read_buffer(fd, &stash) == NULL)
 	{
-		printf("invalid fd");
+		free(stash);
+		stash =NULL;
 		return (NULL);
 	}
-	stash = read_buffer(fd, stash);
-	printf("stash in the main gnl function = %s\n", stash);
-
-	if (stash == NULL)
-		return (NULL);
-	line = extract_line(stash);
-	printf("line in the main gnl function = %s\n", line);
-
-	stash = clean_stash(stash);
-	printf("stash after getting cleand in th main gnl = %s\n", stash);
-	return (line);
+	if (stash != NULL && *stash != '\0')
+	{
+		line = extract_line(&stash);
+		clean_stash(&stash);
+		return (line);
+	}
+	free(stash);
+	stash = NULL;
+	return (NULL);
 }
