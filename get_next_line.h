@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:42:06 by danielad          #+#    #+#             */
-/*   Updated: 2025/11/05 14:23:17 by danielad         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:36:46 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+# define BUFFER_SIZE 10
 # endif
 
 # if BUFFER_SIZE <= 0

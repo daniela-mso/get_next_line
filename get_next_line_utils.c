@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 14:35:03 by danielad          #+#    #+#             */
-/*   Updated: 2025/11/05 14:46:12 by danielad         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:37:52 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strdup(const char *s)
 {
 	char	*dup;
-	int i;
+	int		i;
 
 	i = 0;
 	dup = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);

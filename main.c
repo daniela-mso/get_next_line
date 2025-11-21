@@ -5,18 +5,18 @@
 
 # include "get_next_line.h"
 
-int main()
-{
-	int line_n = 1;
-	char *line;
-	while ((line = get_next_line(STDIN_FILENO)) != NULL)
-	{
-		printf("LINE%d: %s", line_n ,line);
-		free(line);
-		line_n++;
-	}
-	return 0;
-}
+// int main()
+// {
+// 	int line_n = 1;
+// 	char *line;
+// 	while ((line = get_next_line(STDIN_FILENO)) != NULL)
+// 	{
+// 		printf("LINE%d: %s", line_n ,line);
+// 		free(line);
+// 		line_n++;
+// 	}
+// 	return 0;
+// }
 
 
 
@@ -24,7 +24,7 @@ int main()
 
 
 
-// char *get_next_line(int fd);
+char *get_next_line(int fd);
 
 // int main(void)
 // {
@@ -55,3 +55,26 @@ int main()
 // 	close(fd);
 // 	return 0;
 // }
+
+
+int main(void)
+{
+    int fd = open("simple_3_lines.txt", O_RDONLY);
+    if (fd < 0)
+    {
+        perror("open");
+        return 1;
+    }
+    
+    char *line;
+
+    // Loop through all lines until get_next_line returns NULL
+    while ((line = get_next_line(fd)))
+    {
+        printf("LINE: %s", line); // Print the line
+        free(line);  // Free the allocated memory for the line to prevent leaks
+    }
+
+    close(fd); // Close the file descriptor
+    return 0;
+}
