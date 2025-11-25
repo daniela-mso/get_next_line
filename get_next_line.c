@@ -6,7 +6,7 @@
 /*   By: danielad <danielad@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:07:31 by danielad          #+#    #+#             */
-/*   Updated: 2025/11/21 14:43:13 by danielad         ###   ########.fr       */
+/*   Updated: 2025/11/25 22:52:17 by danielad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static char	*read_buffer(int fd, char **stash)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return (NULL);
-	while ((bytes_read = read(fd, buf, BUFFER_SIZE)) > 0)
+	bytes_read = read(fd, buf, BUFFER_SIZE);
+	while (bytes_read > 0)
 	{
 		buf[bytes_read] = '\0';
 		temp = ft_strjoin(*stash, buf);
@@ -29,6 +30,7 @@ static char	*read_buffer(int fd, char **stash)
 		*stash = temp;
 		if (ft_strchr(buf, '\n'))
 			break ;
+		bytes_read = read(fd, buf, BUFFER_SIZE);
 	}
 	free(buf);
 	if (bytes_read < 0)
@@ -81,7 +83,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stash = NULL;
 	char		*line;
-	 
+
 	if (fd < 0)
 		return (NULL);
 	if (stash == NULL)
@@ -103,23 +105,10 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-//     if (stash != NULL && *stash != '\0') 
-//     {
-//         line = extract_line(&stash);  // Extract line from stash
-//         if (!line)  // Check if line allocation was unsuccessful
-//         {
-//             free(stash); // Free stash to avoid leaks
-// 			free(line);
-//             stash = NULL; // Set stash to NULL after freeing
-//             return (NULL);
-//         }
-
-//         clean_stash(&stash);  // Clean up stash
-//         return (line);  // Return the line
-//     }
-
-//     free(stash);  // Free stash if it's empty
-//     stash = NULL; // Set stash to NULL to avoid dangling pointer
-//     return (NULL);
-// }
-
+		//line = extract_line(&stash);
+		// if (line == NULL)
+		// {
+		// 	free(stash);
+		// 	stash = NULL;
+		// 	return (NULL);
+		// }
